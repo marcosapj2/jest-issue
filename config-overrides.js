@@ -1,4 +1,4 @@
-const { override, addWebpackAlias } = require('customize-cra')
+const { override, addWebpackAlias, addBabelPlugin } = require('customize-cra')
 const path = require('path')
 
 module.exports = {
@@ -12,6 +12,9 @@ module.exports = {
       '@store': path.resolve(__dirname, './src/store'),
       '@hooks': path.resolve(__dirname, './src/hooks'),
       '@services': path.resolve(__dirname, './src/services'),
+      '@styles': path.resolve(__dirname, './src/styles'),
+      '@assets': path.resolve(__dirname, './src/assets'),
     }),
+    // addBabelPlugin(['@babel/plugin-transform-react-jsx', { throwIfNamespace: false }]),
   ),
 }

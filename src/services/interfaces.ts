@@ -1,4 +1,7 @@
-export interface IProps {}
+export interface IPokemonListParams {
+  limit?: number
+  offset?: number
+}
 
 export interface IPokemonResult {
   name: string
@@ -7,7 +10,7 @@ export interface IPokemonResult {
 
 export type TPokemonResults = IPokemonResult[]
 
-export interface IData {
+export interface IPokemonListData {
   count: number
   next: string | undefined
   previous: string | undefined

@@ -1,0 +1,31 @@
+@font-face {
+  font-family: 'Montserrat Bold';
+  font-style: normal;
+  font-display: swap;
+  src: url('~assets/fonts/Montserrat-Bold.woff2') format('woff2'),
+    /* Super Modern Browsers */ url('~assets/fonts/Montserrat-Bold.woff') format('woff'); /* Modern Browsers */
+}
+
+@font-face {
+  font-family: 'Montserrat SemiBold';
+  font-style: normal;
+  font-display: swap;
+  src: url('~assets/fonts/Montserrat-SemiBold.woff2') format('woff2'),
+    /* Super Modern Browsers */ url('~assets/fonts/Montserrat-SemiBold.woff') format('woff'); /* Modern Browsers */
+}
+
+@font-face {
+  font-family: 'Montserrat Regular';
+  font-style: normal;
+  font-display: swap;
+  src: url('~assets/fonts/Montserrat-Regular.woff2') format('woff2'),
+    /* Super Modern Browsers */ url('~assets/fonts/Montserrat-Regular.woff') format('woff'); /* Modern Browsers */
+}
+
+@font-face {
+  font-family: 'Montserrat Medium';
+  font-style: normal;
+  font-display: swap;
+  src: url('~assets/fonts/Montserrat-Medium.woff2') format('woff2'),
+    /* Super Modern Browsers */ url('~assets/fonts/Montserrat-Medium.woff') format('woff'); /* Modern Browsers */
+}

@@ -14,8 +14,12 @@
       "@hooks": ["hooks"],
       "@services": ["services"],
       "@store/*": ["store/*"],
+      "@styles": ["styles"],
+      "@styles/*": ["styles/*"],
       "@routes": ["routes"],
       "@routes/*": ["routes/*"],
+      "@assets": ["assets"],
+      "@assets/*": ["assets/*"],
       "@containers": ["containers"],
       "@containers/*": ["containers/*"]
     }

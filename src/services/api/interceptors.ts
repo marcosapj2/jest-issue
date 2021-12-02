@@ -1,8 +1,8 @@
-export const handleFulfilled = (success: any) => {
-  console.log(`success`, success)
-  return success.data
+import { AxiosResponse } from 'axios'
+
+export const handleFulfilled = (success: AxiosResponse) => {
+  return success
 }
 export const handleRejected = (error: any) => {
-  console.log(`error`, error)
   return error
 }
