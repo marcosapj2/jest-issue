@@ -1,9 +1,14 @@
 import { TypedUseSelectorHook, useSelector } from 'react-redux'
 import { combineReducers, createStore } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
+import { initialState as pokemonInitialState, pokemon } from './pokemon'
 
-export const initialState = {}
-const rootReducer = combineReducers({})
+export const initialState = {
+  pokemon: pokemonInitialState,
+}
+const rootReducer = combineReducers({
+  pokemon,
+})
 export const store = createStore(rootReducer, {}, composeWithDevTools())
 
 export type AppState = ReturnType<typeof rootReducer>

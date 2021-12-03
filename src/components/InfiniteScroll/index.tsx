@@ -1,29 +1,27 @@
 import { useRef, useEffect, useState, UIEvent } from 'react'
 import { IProps, IStateQuantity } from './interfaces'
 import { List, Scroll } from './styles'
-import { get, debounce } from 'lodash'
 import { getQuantity } from './helpers'
+import { debounce } from 'lodash'
 
 function InfiniteScroll<T, R>({
   children,
   fetch,
-  setList,
-  refetch,
   item,
   offset,
-  listPath,
   list,
   header,
 }: IProps<T, R>) {
   const [quantities, setQuantities] = useState<IStateQuantity>()
-  const ref = useRef<HTMLDivElement>(null)
   const [page, setPage] = useState<number>(0)
+  const ref = useRef<HTMLDivElement>(null)
   const rowHeight = item.height + offset
   const listWidth = quantities?.quantityOfColumns * rowHeight
 
   useEffect(() => {
-    if (quantities?.quantityOfItems) {
-      fetch(quantities?.quantityOfItems, 0).then(nextPage)
+    if (quantities?.quantityOfItems && !list.length) {
+      fetch(quantities?.quantityOfItems, 0)
+      nextPage()
     }
   }, [quantities?.quantityOfItems])
 
@@ -37,18 +35,13 @@ function InfiniteScroll<T, R>({
     setQuantities({ quantityOfRows, quantityOfItems, quantityOfColumns })
   }, [ref?.current])
 
-  const updateList = (response: T) => {
-    setList((oldList) => [...oldList, ...get(response, listPath)])
-  }
-
-  const nextPage = (response: T) => {
-    updateList(response)
+  const nextPage = () => {
     setPage((page) => page + 1)
   }
 
   const fetchMore = debounce((limit, offset) => {
-    refetch({ limit, offset }).then(nextPage)
-  }, 600)
+    return fetch(limit, offset)
+  }, 300)
 
   const handleScroll = async (event: UIEvent<HTMLDivElement>) => {
     const { scrollHeight, scrollTop, clientHeight } = event.currentTarget
@@ -56,6 +49,7 @@ function InfiniteScroll<T, R>({
 
     if (isScrollingDown) {
       fetchMore(quantities.quantityOfItems, page * quantities?.quantityOfItems)
+      nextPage()
     }
   }
 
@@ -63,7 +57,7 @@ function InfiniteScroll<T, R>({
     <Scroll ref={ref} onScroll={handleScroll}>
       <List $width={listWidth}>
         {header}
-        {list.map((_, index) => children({ index }))}
+        {list?.map((_, index) => children({ index }))}
       </List>
     </Scroll>
   )

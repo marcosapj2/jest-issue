@@ -1,7 +1,8 @@
 import { createGlobalStyle } from 'styled-components'
-// import './fonts.css'
 import pokemonWoff2 from '@assets/fonts/pokemon-solid.woff2'
 import pokemonWoff from '@assets/fonts/pokemon-solid.woff'
+import flexoMediumWoff2 from '@assets/fonts/flexo-medium.woff2'
+import flexoMediumWoff from '@assets/fonts/flexo-medium.woff'
 
 const GlobalStyle = createGlobalStyle`
   @font-face {
@@ -10,6 +11,12 @@ const GlobalStyle = createGlobalStyle`
     font-display: swap;
     src: url(${pokemonWoff2}) format('woff2'), url(${pokemonWoff}) format('woff');
   }
+  
+  @font-face {
+    font-family: 'Flexo-Medium';
+    font-style: normal;
+    src: url(${flexoMediumWoff2}) format('woff2'), url(${flexoMediumWoff}) format('woff');
+  } 
 
   * , *:before, *:after{ 
     box-sizing:border-box; 
