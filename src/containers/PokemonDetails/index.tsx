@@ -10,10 +10,10 @@ import { useQuery } from '@apollo/client'
 import { capitalize } from 'lodash'
 import { useNavigate } from 'react-router-dom'
 
-const convertToDecimal = (value: number, unitMeasurement: string) =>
+const convertToDecimal = (value: number, unitMeasurement: string): string =>
   `${(value / 10).toFixed(1)} ${unitMeasurement}`
 
-export default function () {
+export default function (): JSX.Element {
   const params = useParams()
   const navigate = useNavigate()
 

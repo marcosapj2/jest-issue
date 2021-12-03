@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { List as MaterialList, ListProps } from '@components'
+import { List as MaterialList } from '@components'
 import { IStyledProps } from './interfaces'
 
 export const List = styled<React.ComponentType<IStyledProps>>(MaterialList)`

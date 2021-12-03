@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, useRef } from 'react'
+import { useCallback, useState } from 'react'
 import { IPokemonListData, IPokemonResult, TPokemonResults } from '@services'
 import { InfiniteScroll } from '@components'
 import { capitalize } from 'lodash'
@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { AppState } from '@store'
 
-export default () => {
+export default (): JSX.Element => {
   const navigate = useNavigate()
   const list = useSelector<AppState, TPokemonResults>((state) => state.pokemon.list)
   const dispatch = useDispatch()

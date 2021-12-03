@@ -1,7 +1,7 @@
 import { Skeleton } from '@components'
 import { Card } from '../PokemonCard/styles'
 
-export default function () {
+export default function (): JSX.Element {
   return (
     <Card>
       <Skeleton width="220px" height="220px" />

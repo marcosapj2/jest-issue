@@ -8,7 +8,7 @@ import client from '@services/api/graphql'
 import Routes from '@routes'
 import GlobalStyle from '@styles/GlobalStyle'
 
-function App() {
+function App(): JSX.Element {
   return (
     <Router>
       <ThemeProvider theme={theme}>

@@ -29,6 +29,7 @@
     "jest"
   ],
   "rules": {
-    "semi": ["error", "never"]
+    "semi": ["error", "never"],
+    "react-hooks/exhaustive-deps": "off"
   }
 }

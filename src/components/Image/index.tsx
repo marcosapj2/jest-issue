@@ -1,7 +1,7 @@
 import { IProps } from './interfaces'
 import { StyledImage } from './styles'
 
-function Image({ alt, src, width, height, className, onClick }: IProps) {
+function Image({ alt, src, width, height, className, onClick }: IProps): JSX.Element {
   return (
     <StyledImage
       alt={alt}

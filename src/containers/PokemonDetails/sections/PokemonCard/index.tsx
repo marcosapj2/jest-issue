@@ -29,7 +29,7 @@ export default function ({
   evolutions,
   onClickBack,
   onClickEvolution,
-}: IProps) {
+}: IProps): JSX.Element {
   const { hp, attack, defense, speed, specialAttack, specialDefense } = stats
 
   return (
@@ -69,21 +69,18 @@ export default function ({
         <>
           <SubTitle>Evoluções</SubTitle>
           <EvolutionsRow>
-            {evolutions.map(
-              (evolution) =>
-                evolution && (
-                  <RelativeContainer>
-                    <PokemonEvolution
-                      alt={evolution.name}
-                      src={getPokemonImage(evolution.id)}
-                      width="220px"
-                      height="250px"
-                      onClick={() => onClickEvolution(evolution.id)}
-                    />
-                    <AbsoluteTitle>{evolution.name}</AbsoluteTitle>
-                  </RelativeContainer>
-                ),
-            )}
+            {evolutions.map((evolution) => (
+              <RelativeContainer key={evolution.id}>
+                <PokemonEvolution
+                  alt={evolution.name}
+                  src={getPokemonImage(evolution.id)}
+                  width="220px"
+                  height="250px"
+                  onClick={() => onClickEvolution(evolution.id)}
+                />
+                <AbsoluteTitle>{evolution.name}</AbsoluteTitle>
+              </RelativeContainer>
+            ))}
           </EvolutionsRow>
         </>
       )}

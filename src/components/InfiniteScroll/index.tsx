@@ -11,7 +11,7 @@ function InfiniteScroll<T, R>({
   offset,
   list,
   header,
-}: IProps<T, R>) {
+}: IProps<T, R>): JSX.Element {
   const [quantities, setQuantities] = useState<IStateQuantity>()
   const [page, setPage] = useState<number>(0)
   const ref = useRef<HTMLDivElement>(null)
