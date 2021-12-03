@@ -1,9 +1,5 @@
 import styled from 'styled-components'
-import {
-  ListItem as MaterialListItem,
-  Typography as MaterialTypography,
-  ListItemProps,
-} from '@components'
+import { ListItem as MaterialListItem, ListItemProps } from '@components'
 
 export const ListItem = styled(MaterialListItem)`
   &.MuiListItem-root {
@@ -21,6 +17,7 @@ export const ListItem = styled(MaterialListItem)`
   }
 ` as unknown as React.ComponentType<ListItemProps>
 
-export const Typography = styled(MaterialTypography)`
+export const Typography = styled.h2`
   user-select: none;
+  font-family: 'Flexo-Medium';
 `
