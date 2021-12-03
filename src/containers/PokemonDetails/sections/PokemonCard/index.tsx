@@ -68,7 +68,7 @@ export default function ({
       ) : (
         <>
           <SubTitle>Evoluções</SubTitle>
-          <EvolutionsRow>
+          <EvolutionsRow $isSpaceAround={evolutions.length < 3}>
             {evolutions.map((evolution) => (
               <RelativeContainer key={evolution.id}>
                 <PokemonEvolution

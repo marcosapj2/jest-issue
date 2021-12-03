@@ -12,3 +12,7 @@ export interface IProps {
   onClickEvolution: (id: number) => void
   onClickBack: () => void
 }
+
+export interface IStyledProps {
+  $isSpaceAround?: boolean
+}

@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { Card as MaterialCard, CardProps, Image } from '@components'
 import MaterialArrowBackIcon from '@material-ui/icons/ArrowBack'
+import { IStyledProps } from './interfaces'
 
 export const ArrowBackIcon = styled(MaterialArrowBackIcon).attrs({ fontSize: 'large' })`
   cursor: pointer;
@@ -69,13 +70,14 @@ export const Column = styled.div`
   flex-direction: column;
 `
 
-export const EvolutionsRow = styled.div`
+export const EvolutionsRow = styled.div<IStyledProps>`
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   margin-top: 20px;
   width: 80%;
-  justify-content: space-between;
+  justify-content: ${({ $isSpaceAround }) =>
+    $isSpaceAround ? 'space-around' : 'space-between'};
 
   @media (max-width: 700px) {
     flex-direction: column;
