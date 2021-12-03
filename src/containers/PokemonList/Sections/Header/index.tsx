@@ -1,9 +1,10 @@
-import { Column, PokemonLogo } from './styles'
+import { Column, Input, Logo } from './styles'
 
-export default function () {
+export default function ({ onChange }) {
   return (
     <Column>
-      <PokemonLogo />
+      <Logo>VR Pokedex</Logo>
+      <Input onChange={onChange} />
     </Column>
   )
 }

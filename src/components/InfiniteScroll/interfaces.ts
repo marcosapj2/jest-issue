@@ -1,21 +1,32 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
+import { ListProps } from '@components'
 
 interface IItem {
   width: number
   height: number
-  skeleton: JSX.Element
 }
 
 interface InjectedCounterProps {
   index: number
-  list: any[]
 }
 
-export interface IProps<T> {
+export interface IProps<T, R> {
   children(props: InjectedCounterProps): JSX.Element
-  fetch: (quantityOfItems: number, offset: number) => Promise<AxiosResponse<T>>
+  refetch: (variables: { limit: number; offset: number }) => Promise<T>
+  fetch: (quantityOfItems: number, offset: number) => Promise<T>
+  list: R[]
+  setList: React.Dispatch<React.SetStateAction<R[]>>
   offset: number
-  arrayPath: string
+  listPath: string
   item: IItem
   header?: JSX.Element
+}
+
+export interface IStyledProps extends ListProps {
+  $width: number
+}
+
+export interface IStateQuantity {
+  quantityOfRows: number
+  quantityOfItems: number
+  quantityOfColumns: number
 }

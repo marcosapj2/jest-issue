@@ -1,4 +1,4 @@
 export default {
-  background: { primary: '#FF0000', secondary: '#FFFFFF' },
+  background: { primary: '#ffd700', secondary: '#FFFFFF' },
   typography: '#000000',
 }

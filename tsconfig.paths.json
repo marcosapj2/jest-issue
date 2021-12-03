@@ -13,6 +13,7 @@
       "@store": ["store"],
       "@hooks": ["hooks"],
       "@services": ["services"],
+      "@services/*": ["services/*"],
       "@store/*": ["store/*"],
       "@styles": ["styles"],
       "@styles/*": ["styles/*"],

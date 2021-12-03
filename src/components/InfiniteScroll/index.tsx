@@ -1,72 +1,71 @@
 import { useRef, useEffect, useState, UIEvent } from 'react'
-import { useRequest } from '@hooks'
-import { IProps } from './interfaces'
-import { List } from './styles'
-import { get } from 'lodash'
-import { AxiosResponse } from 'axios'
+import { IProps, IStateQuantity } from './interfaces'
+import { List, Scroll } from './styles'
+import { get, debounce } from 'lodash'
+import { getQuantity } from './helpers'
 
-function InfiniteScroll<T, D>({
+function InfiniteScroll<T, R>({
   children,
   fetch,
+  setList,
+  refetch,
   item,
   offset,
-  arrayPath,
+  listPath,
+  list,
   header,
-}: IProps<T>) {
-  const [quantityOfItems, setQuantityOfItems] = useState<number>()
-  const ref = useRef<HTMLUListElement>(null)
+}: IProps<T, R>) {
+  const [quantities, setQuantities] = useState<IStateQuantity>()
+  const ref = useRef<HTMLDivElement>(null)
   const [page, setPage] = useState<number>(0)
-  const [list, setList] = useState<D[]>([])
-  const { loading, run } = useRequest<AxiosResponse<T>>(fetch, {
-    manual: true,
-  })
+  const rowHeight = item.height + offset
+  const listWidth = quantities?.quantityOfColumns * rowHeight
 
   useEffect(() => {
-    if (quantityOfItems) {
-      run(quantityOfItems).then((data) => {
-        setList(get(data, arrayPath))
-        setPage((page) => page + 1)
-      })
+    if (quantities?.quantityOfItems) {
+      fetch(quantities?.quantityOfItems, 0).then(nextPage)
     }
-  }, [quantityOfItems])
+  }, [quantities?.quantityOfItems])
 
   useEffect(() => {
-    if (ref?.current) {
-      const { offsetHeight, offsetWidth } = ref.current
-      const extraRows = 2
-      const quantityOfRows = Math.floor(offsetHeight / (item.height + offset)) + extraRows
-      const quantityOfColumns = Math.floor(offsetWidth / (item.width + offset))
-      const quantityOfItems = quantityOfRows * quantityOfColumns
+    const { offsetHeight } = ref.current
+    const extraRows = 2
+    const quantityOfRows = getQuantity(offsetHeight, item.height, offset) + extraRows
+    const quantityOfColumns = getQuantity(window.innerWidth, item.width, offset)
+    const quantityOfItems = quantityOfRows * quantityOfColumns
 
-      setQuantityOfItems(quantityOfItems)
-    }
+    setQuantities({ quantityOfRows, quantityOfItems, quantityOfColumns })
   }, [ref?.current])
 
-  const handleScroll = (event: UIEvent<HTMLUListElement>) => {
+  const updateList = (response: T) => {
+    setList((oldList) => [...oldList, ...get(response, listPath)])
+  }
+
+  const nextPage = (response: T) => {
+    updateList(response)
+    setPage((page) => page + 1)
+  }
+
+  const fetchMore = debounce((limit, offset) => {
+    refetch({ limit, offset }).then(nextPage)
+  }, 600)
+
+  const handleScroll = async (event: UIEvent<HTMLDivElement>) => {
     const { scrollHeight, scrollTop, clientHeight } = event.currentTarget
+    const isScrollingDown = scrollHeight - scrollTop - rowHeight < clientHeight
 
-    if (quantityOfItems) {
-      const offset = page * quantityOfItems
-      const isScrollingDown = Math.round(scrollHeight - scrollTop) === clientHeight
-
-      if (isScrollingDown) {
-        run(quantityOfItems, offset).then((newData) => {
-          const newList = get(newData, arrayPath)
-
-          setList((oldList) => [...oldList, ...newList])
-          setPage((page) => page + 1)
-        })
-      }
+    if (isScrollingDown) {
+      fetchMore(quantities.quantityOfItems, page * quantities?.quantityOfItems)
     }
   }
 
   return (
-    <List ref={ref} onScroll={handleScroll}>
-      {header}
-      {list.map((_, index) => {
-        return loading || !list.length ? item.skeleton : children({ index, list })
-      })}
-    </List>
+    <Scroll ref={ref} onScroll={handleScroll}>
+      <List $width={listWidth}>
+        {header}
+        {list.map((_, index) => children({ index }))}
+      </List>
+    </Scroll>
   )
 }
 

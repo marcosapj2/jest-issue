@@ -17,6 +17,7 @@ export const ListItem = styled(MaterialListItem)`
     height: 240px;
     cursor: pointer;
     user-select: none;
+    box-shadow: 0 0 5px 0.5px rgba(0, 0, 0, 0.1);
   }
 ` as unknown as React.ComponentType<ListItemProps>
 

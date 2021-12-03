@@ -5,7 +5,8 @@ export interface IPokemonListParams {
 
 export interface IPokemonResult {
   name: string
-  url: string
+  genus: string
+  id: number
 }
 
 export type TPokemonResults = IPokemonResult[]

@@ -1,7 +1,16 @@
 import { createGlobalStyle } from 'styled-components'
 // import './fonts.css'
+import pokemonWoff2 from '@assets/fonts/pokemon-solid.woff2'
+import pokemonWoff from '@assets/fonts/pokemon-solid.woff'
 
 const GlobalStyle = createGlobalStyle`
+  @font-face {
+    font-family: 'Pokemon';
+    font-style: normal;
+    font-display: swap;
+    src: url(${pokemonWoff2}) format('woff2'), url(${pokemonWoff}) format('woff');
+  }
+
   * , *:before, *:after{ 
     box-sizing:border-box; 
     -moz-box-sizing:border-box; 
