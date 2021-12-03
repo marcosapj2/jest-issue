@@ -63,24 +63,30 @@ export default function ({
           </Column>
         </Details>
       </DetailsRow>
-      <SubTitle>Evoluções</SubTitle>
-      <EvolutionsRow>
-        {evolutions.map(
-          (evolution) =>
-            evolution && (
-              <RelativeContainer>
-                <PokemonEvolution
-                  alt={evolution.name}
-                  src={getPokemonImage(evolution.id)}
-                  width="220px"
-                  height="250px"
-                  onClick={() => onClickEvolution(evolution.id)}
-                />
-                <AbsoluteTitle>{evolution.name}</AbsoluteTitle>
-              </RelativeContainer>
-            ),
-        )}
-      </EvolutionsRow>
+      {evolutions.length === 1 ? (
+        <SubTitle>Não tem evoluções</SubTitle>
+      ) : (
+        <>
+          <SubTitle>Evoluções</SubTitle>
+          <EvolutionsRow>
+            {evolutions.map(
+              (evolution) =>
+                evolution && (
+                  <RelativeContainer>
+                    <PokemonEvolution
+                      alt={evolution.name}
+                      src={getPokemonImage(evolution.id)}
+                      width="220px"
+                      height="250px"
+                      onClick={() => onClickEvolution(evolution.id)}
+                    />
+                    <AbsoluteTitle>{evolution.name}</AbsoluteTitle>
+                  </RelativeContainer>
+                ),
+            )}
+          </EvolutionsRow>
+        </>
+      )}
     </Card>
   )
 }
