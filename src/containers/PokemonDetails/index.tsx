@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { TPokemonResults } from '@services'
 import { AppState } from '@store'
@@ -8,7 +8,6 @@ import { View } from './styles'
 import { GET_POKEMON } from './query'
 import { useQuery } from '@apollo/client'
 import { capitalize } from 'lodash'
-import { useNavigate } from 'react-router-dom'
 
 const convertToDecimal = (value: number, unitMeasurement: string): string =>
   `${(value / 10).toFixed(1)} ${unitMeasurement}`
