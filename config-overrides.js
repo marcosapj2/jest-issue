@@ -14,7 +14,7 @@ module.exports = {
       '@services': path.resolve(__dirname, './src/services'),
       '@styles': path.resolve(__dirname, './src/styles'),
       '@assets': path.resolve(__dirname, './src/assets'),
+      '@mocks': path.resolve(__dirname, './src/mocks'),
     }),
-    // addBabelPlugin(['@babel/plugin-transform-react-jsx', { throwIfNamespace: false }]),
   ),
 }
