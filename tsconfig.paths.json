@@ -22,7 +22,9 @@
       "@assets": ["assets"],
       "@assets/*": ["assets/*"],
       "@containers": ["containers"],
-      "@containers/*": ["containers/*"]
+      "@containers/*": ["containers/*"],
+      "@mocks": ["mocks"],
+      "@mocks/*": ["mocks/*"]
     }
   }
 }
