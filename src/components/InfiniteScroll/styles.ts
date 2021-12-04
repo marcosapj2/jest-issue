@@ -9,7 +9,7 @@ export const List = styled<React.ComponentType<IStyledProps>>(MaterialList)`
   width: ${({ $width }) => $width}px;
 `
 
-export const Scroll = styled.div`
+export const Scroll = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;

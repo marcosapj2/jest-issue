@@ -17,7 +17,6 @@ export default (): JSX.Element => {
   const dispatch = useDispatch()
   const [listPokemons] = useLazyQuery(LIST_POKEMONS, {
     onCompleted: (data) => {
-      console.log(`data`, data)
       if (data) {
         if (replace) {
           replaceList(data.results)
@@ -62,7 +61,7 @@ export default (): JSX.Element => {
       offset={20}
       item={{ width: 240, height: 240 }}
     >
-      {({ index }: { index: number }) => {
+      {({ index }) => {
         const pokemon = list[index]
         const pokemonImage = getPokemonImage(pokemon.id)
         const pokemonName = capitalize(pokemon.name)

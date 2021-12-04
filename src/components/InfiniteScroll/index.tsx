@@ -54,7 +54,7 @@ function InfiniteScroll<T, R>({
   }
 
   return (
-    <Scroll ref={ref} onScroll={handleScroll}>
+    <Scroll role="feed" ref={ref} onScroll={handleScroll}>
       <List $width={listWidth}>
         {header}
         {list?.map((_, index) => children({ index }))}
