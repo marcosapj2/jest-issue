@@ -1,25 +1,36 @@
-import { render, RenderOptions, RenderResult } from '@testing-library/react'
+import { render as rtlRender } from '@testing-library/react'
 import theme from '@constants/theme'
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 import { Provider } from 'react-redux'
 import { MemoryRouter } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 import { ApolloProvider } from '@apollo/client'
 import client from '@services/api/graphql'
-import { store } from '@store'
+import { rootReducer, initialState } from '@store'
+import { configureStore } from '@reduxjs/toolkit'
+import { ExtendedRenderOptions } from './interfaces'
 
-const Providers: React.FunctionComponent = (props) => (
-  <Provider store={store}>
-    <ApolloProvider client={client}>
-      <MemoryRouter>
-        <ThemeProvider theme={theme}>{props.children}</ThemeProvider>
-      </MemoryRouter>
-    </ApolloProvider>
-  </Provider>
-)
-
-const customRender = (ui: React.ReactElement, options?: RenderOptions): RenderResult =>
-  render(ui, { wrapper: Providers, ...options })
+function render<S>(
+  ui: React.ReactElement,
+  {
+    preloadedState = initialState,
+    store = configureStore({ reducer: rootReducer, preloadedState }),
+    ...renderOptions
+  }: ExtendedRenderOptions<S> = {},
+) {
+  function Wrapper({ children }: PropsWithChildren<{}>): JSX.Element {
+    return (
+      <ApolloProvider client={client}>
+        <MemoryRouter>
+          <ThemeProvider theme={theme}>
+            <Provider store={store}>{children}</Provider>
+          </ThemeProvider>
+        </MemoryRouter>
+      </ApolloProvider>
+    )
+  }
+  return rtlRender(ui, { wrapper: Wrapper, ...renderOptions })
+}
 
 export * from '@testing-library/react'
-export { customRender as render, store }
+export { render }

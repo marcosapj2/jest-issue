@@ -6,7 +6,8 @@ import { initialState as pokemonInitialState, pokemon } from './pokemon'
 export const initialState = {
   pokemon: pokemonInitialState,
 }
-const rootReducer = combineReducers({
+
+export const rootReducer = combineReducers({
   pokemon,
 })
 export const store = createStore(rootReducer, {}, composeWithDevTools())
