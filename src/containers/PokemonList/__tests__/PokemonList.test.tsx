@@ -5,10 +5,18 @@ import userEvent from '@testing-library/user-event'
 import { resizeTo } from 'window-resizeto'
 import listPokemonHandler from '@mocks/handlers/listPokemons'
 import pokemonsMock from '@mocks/objects/pokemons.json'
+import * as MockReactRouterDom from 'react-router-dom'
+
+const mockNavigate = jest.fn()
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual<typeof MockReactRouterDom>('react-router-dom'),
+  useNavigate: () => mockNavigate,
+}))
 
 describe('PokemonList', () => {
   const server = setupServer(listPokemonHandler)
-  const lastPokemonOnFirstPage = pokemonsMock.results[5].name
+  const lastPokemonOnFirstPage = pokemonsMock.results[5]
 
   beforeAll(() => {
     resizeTo(window, 1024, 768)
@@ -23,11 +31,14 @@ describe('PokemonList', () => {
     server.listen()
   })
 
+  afterEach(() => server.resetHandlers())
+  afterAll(() => server.close())
+
   it('should render the list of pokemons', async () => {
     render(<PokemonList />)
 
     await waitFor(() => {
-      expect(screen.queryByText(lastPokemonOnFirstPage)).toBeInTheDocument()
+      expect(screen.queryByText(lastPokemonOnFirstPage.name)).toBeInTheDocument()
     })
   })
 
@@ -52,7 +63,7 @@ describe('PokemonList', () => {
     const infiniteScrollFeed = screen.getByRole('feed')
 
     await waitFor(() => {
-      expect(screen.queryByText(lastPokemonOnFirstPage)).toBeInTheDocument()
+      expect(screen.queryByText(lastPokemonOnFirstPage.name)).toBeInTheDocument()
     })
 
     fireEvent.scroll(infiniteScrollFeed, { target: { scrollTop: 600 } })
@@ -60,5 +71,18 @@ describe('PokemonList', () => {
     await waitFor(() => {
       expect(screen.queryByText(firstPokemonOnNextPage)).toBeInTheDocument()
     })
+  })
+
+  it('should trigger navigate when click on a pokemon', async () => {
+    render(<PokemonList />)
+
+    await waitFor(() => {
+      const lastPokemon = screen.queryByText(lastPokemonOnFirstPage.name)
+      expect(lastPokemon).toBeInTheDocument()
+
+      userEvent.click(lastPokemon)
+    })
+
+    expect(mockNavigate).toBeCalledWith('/pokemons/5006')
   })
 })
