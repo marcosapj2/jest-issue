@@ -19,6 +19,7 @@ function InfiniteScroll<T, R>({
   const listWidth = quantities?.quantityOfColumns * rowHeight
 
   useEffect(() => {
+    console.log(`list`, list)
     if (quantities?.quantityOfItems && !list.length) {
       fetch(quantities?.quantityOfItems, 0)
       nextPage()

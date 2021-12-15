@@ -1,8 +1,15 @@
-const { override, addWebpackAlias, addBabelPlugin } = require('customize-cra')
+const { override, addWebpackAlias, addWebpackPlugin } = require('customize-cra')
 const path = require('path')
+const webpack = require('webpack')
 
 module.exports = {
   webpack: override(
+    addWebpackPlugin(
+      new webpack.SourceMapDevToolPlugin({
+        noSources: false,
+        filename: '[file].map',
+      }),
+    ),
     addWebpackAlias({
       '@constants': path.resolve(__dirname, './src/constants'),
       '@components': path.resolve(__dirname, './src/components'),

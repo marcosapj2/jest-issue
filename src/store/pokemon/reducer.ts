@@ -9,6 +9,9 @@ export const pokemon: Reducer<IPokemonState, TPokemonActions> = (
   state = initialState,
   { type, ...payload },
 ) => {
+  console.log(`state: `, state)
+  console.log(`type: `, type)
+  console.log(`payload.list: `, payload.list)
   switch (type) {
     case PokemonActionTypes.UPDATE_LIST:
       return {

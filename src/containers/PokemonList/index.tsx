@@ -17,6 +17,7 @@ export default (): JSX.Element => {
   const dispatch = useDispatch()
   const [listPokemons] = useLazyQuery(LIST_POKEMONS, {
     onCompleted: (data) => {
+      console.log(`data`, data)
       if (data) {
         if (replace) {
           replaceList(data.results)
